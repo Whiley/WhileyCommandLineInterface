@@ -13,12 +13,19 @@
 // limitations under the License.
 package wycli.lang;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Predicate;
 
 import wybs.lang.Build;
+import wybs.lang.Build.Meter;
+import wybs.util.Logger;
+import wybs.util.AbstractCompilationUnit.Value;
 import wycli.cfg.Configuration;
 import wycli.lang.Package;
+import wyfs.lang.Content;
+import wyfs.lang.Path;
 
 /**
  * A command which can be executed (e.g. from the command-line)
@@ -60,7 +67,7 @@ public interface Command {
 	 * @author David J. Pearce
 	 *
 	 */
-	public interface Environment extends Build.Environment, Configuration {
+	public interface Environment extends Configuration {
 		/**
 		 * Get the command descriptors available in this environment.
 		 *
@@ -74,10 +81,118 @@ public interface Command {
 		 * @return
 		 */
 		Package.Resolver getPackageResolver();
+
+
+		/**
+		 * Get the top-level root for this environment which includes all active
+		 * projects in this environment.
+		 *
+		 * @return
+		 */
+		public Path.Root getRoot();
+
+		/**
+		 * Get the registry used for resolving content types in this environment.
+		 *
+		 * @return
+		 */
+		public Content.Registry getContentRegistry();
+
+		/**
+		 * Get the set of build platforms which are active in this environment.
+		 *
+		 * @return
+		 */
+		public List<Platform> getBuildPlatforms();
+
+		/**
+		 * Get the list of all projects active within this environment.
+		 *
+		 * @return
+		 */
+		public List<Build.Project> getProjects();
+
+		/**
+		 * Get the executor service available in this environment
+		 *
+		 * @return
+		 */
+		public ExecutorService getExecutor();
+
+		/**
+		 * Get the top-level meter for this environment.
+		 *
+		 * @return
+		 */
+		public Meter getMeter();
+
+		/**
+		 * Get the default logger used in this environment.
+		 */
+		public Logger getLogger();
 	}
 
+
+	/**
+	 * Provides a high-level concept of a target platform. These are registered by
+	 * various backends to support different compilation targets.
+	 *
+	 * @author David J. Pearce
+	 *
+	 */
+	public interface Platform {
+		/**
+		 * Get the unique name identifying this platform.
+		 *
+		 * @return
+		 */
+		public String getName();
+
+		/**
+		 * Get the configuration schema for this build platform. This specifies the
+		 * permitted set of options for the platform, including their types, etc.
+		 *
+		 * @return
+		 */
+		public Configuration.Schema getConfigurationSchema();
+
+		/**
+		 * Initialise this platform to produce a build task which can be used for
+		 * compiling.
+		 *
+		 * @param project
+		 *            Enclosing project for this build task
+		 * @return
+		 */
+		public void initialise(Configuration configuration, Build.Project project) throws IOException;
+
+		/**
+		 * Get the source type for this build platform.
+		 *
+		 * @return
+		 */
+		public Content.Type<?> getSourceType();
+
+		/**
+		 * Get the target type for this build platform.
+		 *
+		 * @return
+		 */
+		public Content.Type<?> getTargetType();
+
+		/**
+		 * Execute a given function in the generated code for this platform.
+		 *
+		 * @param project
+		 * @param path
+		 * @param name
+		 * @param args
+		 */
+		public void execute(Build.Project project, Path.ID path, String name, Value... args) throws IOException;
+	}
+
+
 	public interface Project extends Build.Project, Configuration {
-		@Override
 		Environment getEnvironment();
 	}
 
@@ -89,7 +204,7 @@ public interface Command {
 	 * @author David J. Pearce
 	 *
 	 */
-	public interface Descriptor extends Feature {
+	public interface Descriptor {
 		/**
 		 * Get the name of this command. This should uniquely identify the command in
 		 * question.

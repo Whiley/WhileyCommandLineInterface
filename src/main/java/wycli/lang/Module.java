@@ -47,7 +47,7 @@ public interface Module {
 		 * @param extension
 		 *            The implementation of the given extension point.
 		 */
-		public <T extends Feature> void register(Class<T> ep, T extension);
+		public <T> void register(Class<T> ep, T extension);
 
 		/**
 		 * Create a new extension point which subsequent modules can register
@@ -56,7 +56,7 @@ public interface Module {
 		 * @param extension
 		 * @param ep
 		 */
-		public <T extends Feature> void create(Class<T> extension, ExtensionPoint<T> ep);
+		public <T> void create(Class<T> extension, ExtensionPoint<T> ep);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public interface Module {
 	 * @author David J. Pearce
 	 *
 	 */
-	public interface ExtensionPoint<T extends Feature> {
+	public interface ExtensionPoint<T> {
 
 		/**
 		 * Notify extension point that a new extension has been registered for

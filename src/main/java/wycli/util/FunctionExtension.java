@@ -18,10 +18,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import wycli.lang.Feature;
 import wycli.lang.Module;
 
-public class FunctionExtension implements Feature {
+public class FunctionExtension {
 	private Module receiver;
 	private Method method;
 

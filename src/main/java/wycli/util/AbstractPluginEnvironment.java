@@ -79,9 +79,9 @@ public abstract class AbstractPluginEnvironment extends AbstractCommandEnvironme
 	 * @param templates
 	 */
 	private void createBuildPlatformExtensionPoint() {
-		context.create(wybs.lang.Build.Platform.class, new Module.ExtensionPoint<wybs.lang.Build.Platform>() {
+		context.create(Command.Platform.class, new Module.ExtensionPoint<Command.Platform>() {
 			@Override
-			public void register(wybs.lang.Build.Platform platform) {
+			public void register(Command.Platform platform) {
 				buildPlatforms.add(platform);
 			}
 		});

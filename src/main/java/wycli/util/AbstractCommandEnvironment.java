@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-import wybs.lang.Build.Platform;
 import wybs.lang.Build.Project;
 import wybs.util.Logger;
 import wycli.cfg.Configuration;
@@ -50,7 +49,7 @@ public abstract class AbstractCommandEnvironment implements Command.Environment 
 	/**
 	 * List of all known build platforms registered by plugins.
 	 */
-	protected ArrayList<wybs.lang.Build.Platform> buildPlatforms = new ArrayList<>();
+	protected ArrayList<Command.Platform> buildPlatforms = new ArrayList<>();
 
 	/**
 	 * Standard log output
@@ -125,7 +124,7 @@ public abstract class AbstractCommandEnvironment implements Command.Environment 
 	 * @return
 	 */
 	@Override
-	public List<wybs.lang.Build.Platform> getBuildPlatforms() {
+	public List<Command.Platform> getBuildPlatforms() {
 		return buildPlatforms;
 	}
 

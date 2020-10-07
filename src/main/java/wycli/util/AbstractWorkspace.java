@@ -13,23 +13,17 @@
 // limitations under the License.
 package wycli.util;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
-import wybs.lang.SyntacticException;
-import wybs.lang.SyntacticItem;
-import wybs.lang.Build.Environment;
 import wybs.lang.Build.Project;
 import wybs.util.Logger;
 import wybs.util.SequentialBuildProject;
 import wybs.util.AbstractCompilationUnit.Value;
-import wybs.util.AbstractCompilationUnit.Value.UTF8;
 import wycli.cfg.ConfigFile;
 import wycli.cfg.Configuration;
 import wycli.commands.Build;
@@ -53,7 +47,6 @@ import wyfs.util.ZipFile;
 
 public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 	public static final Trie BUILD_PLATFORMS = Trie.fromString("build/platforms");
-
 
 	/**
 	 * Set of default command descriptors.
@@ -208,7 +201,7 @@ public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 		if (project == null) {
 			Path.Root root = getRoot().createRelativeRoot(id);
 			// Create a new project record
-			project = new AbstractProject(this, root);
+			project = new AbstractProject( root);
 			// Configure package directory structure
 			project.initialise();
 			// Refresh project to initialise build instances
@@ -241,8 +234,8 @@ public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 	public class AbstractProject extends SequentialBuildProject implements Command.Project {
 		private Configuration configuration = Configuration.EMPTY(EMPTY_SCHEMA);
 
-		public AbstractProject(Environment environment, Root root) {
-			super(environment, root);
+		public AbstractProject(Root root) {
+			super(root);
 		}
 
 		/**
@@ -257,7 +250,7 @@ public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 			int index = 0;
 			schemas[index++] = Package.SCHEMA;
 			for (int i = 0; i != buildPlatforms.size(); ++i) {
-				wybs.lang.Build.Platform platform = buildPlatforms.get(i);
+				Command.Platform platform = buildPlatforms.get(i);
 				schemas[index++] = platform.getConfigurationSchema();
 			}
 			for (int i = 0; i != commandDescriptors.size(); ++i) {
@@ -273,7 +266,7 @@ public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 			// Resolve package dependencies
 			resolve(schema);
 			// initialise platforms
-			for (wybs.lang.Build.Platform platform : getTargetPlatforms()) {
+			for (Command.Platform platform : getTargetPlatforms()) {
 				// Apply current configuration
 				platform.initialise(configuration, this);
 			}
@@ -308,16 +301,16 @@ public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 		 *
 		 * @return
 		 */
-		private List<wybs.lang.Build.Platform> getTargetPlatforms() {
-			ArrayList<wybs.lang.Build.Platform> targetPlatforms = new ArrayList<>();
+		private List<Command.Platform> getTargetPlatforms() {
+			ArrayList<Command.Platform> targetPlatforms = new ArrayList<>();
 			// Ensure target platforms are specified
 			if (hasKey(BUILD_PLATFORMS)) {
 				Value.UTF8[] targetPlatformNames = get(Value.Array.class, BUILD_PLATFORMS).toArray(Value.UTF8.class);
 				// Get list of all build platforms.
-				List<wybs.lang.Build.Platform> platforms = getBuildPlatforms();
+				List<Command.Platform> platforms = getBuildPlatforms();
 				// Check each platform for inclusion
 				for (int i = 0; i != platforms.size(); ++i) {
-					wybs.lang.Build.Platform platform = platforms.get(i);
+					Command.Platform platform = platforms.get(i);
 					// Convert name to UTF8 value (ugh)
 					Value.UTF8 name = new Value.UTF8(platform.getName().getBytes());
 					// Determine whether is a target platform or not
@@ -370,7 +363,6 @@ public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 			this.configuration = configuration;
 		}
 
-		@Override
 		public Configuration getConfiguration() {
 			return configuration;
 		}

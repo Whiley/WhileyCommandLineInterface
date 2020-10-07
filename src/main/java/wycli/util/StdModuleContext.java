@@ -16,7 +16,6 @@ package wycli.util;
 import java.util.HashMap;
 
 import wybs.util.Logger;
-import wycli.lang.Feature;
 import wycli.lang.Module;
 
 public class StdModuleContext implements Module.Context {
@@ -44,7 +43,7 @@ public class StdModuleContext implements Module.Context {
 	}
 
 	@Override
-	public <T extends Feature> void register(Class<T> ep, T feature) {
+	public <T> void register(Class<T> ep, T feature) {
 		Module.ExtensionPoint<T> container = (Module.ExtensionPoint<T>) extensionPoints.get(ep);
 		if (ep == null) {
 			throw new RuntimeException("Missing extension point: " + ep.getCanonicalName());
@@ -54,7 +53,7 @@ public class StdModuleContext implements Module.Context {
 	}
 
 	@Override
-	public <T extends Feature> void create(Class<T> extension, Module.ExtensionPoint<T> ep) {
+	public <T> void create(Class<T> extension, Module.ExtensionPoint<T> ep) {
 		if (extensionPoints.containsKey(extension)) {
 			throw new RuntimeException("Extension point already exists: " + extension);
 		} else {
