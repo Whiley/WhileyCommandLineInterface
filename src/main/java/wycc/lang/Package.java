@@ -22,9 +22,9 @@ import wybs.lang.Build;
 import wybs.util.AbstractCompilationUnit.Value;
 import wycc.cfg.ConfigFile;
 import wycc.cfg.Configuration;
-import wycc.util.Pair;
 import wyfs.lang.Content;
 import wyfs.lang.Path;
+import wyfs.util.Pair;
 import wyfs.util.Trie;
 import wyfs.util.ZipFile;
 

@@ -29,6 +29,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+import wybs.util.Logger;
 import wycc.lang.Descriptor;
 import wycc.lang.Module;
 import wycc.lang.SemanticDependency;

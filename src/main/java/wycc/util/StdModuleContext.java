@@ -15,6 +15,7 @@ package wycc.util;
 
 import java.util.HashMap;
 
+import wybs.util.Logger;
 import wycc.lang.Feature;
 import wycc.lang.Module;
 

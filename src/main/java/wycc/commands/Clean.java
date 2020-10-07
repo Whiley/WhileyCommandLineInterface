@@ -19,10 +19,10 @@ import java.util.Collections;
 import java.util.List;
 
 import wybs.lang.Build;
+import wybs.util.Logger;
 import wycc.cfg.Configuration;
 import wycc.cfg.Configuration.Schema;
 import wycc.lang.Command;
-import wycc.util.Logger;
 import wyfs.lang.Path;
 
 public class Clean implements Command {

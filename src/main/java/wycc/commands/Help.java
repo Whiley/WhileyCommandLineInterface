@@ -18,9 +18,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import wybs.util.Logger;
 import wycc.cfg.Configuration;
 import wycc.lang.Command;
-import wycc.util.Logger;
 import wyfs.util.Trie;
 
 public class Help implements Command {

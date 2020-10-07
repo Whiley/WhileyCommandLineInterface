@@ -13,7 +13,7 @@
 // limitations under the License.
 package wycc.lang;
 
-import wycc.util.Logger;
+import wybs.util.Logger;
 
 /**
  * <p>

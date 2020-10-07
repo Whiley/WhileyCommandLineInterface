@@ -26,6 +26,7 @@ import wybs.lang.SyntacticException;
 import wybs.lang.SyntacticItem;
 import wybs.lang.Build.Environment;
 import wybs.lang.Build.Project;
+import wybs.util.Logger;
 import wybs.util.SequentialBuildProject;
 import wybs.util.AbstractCompilationUnit.Value;
 import wybs.util.AbstractCompilationUnit.Value.UTF8;
@@ -46,6 +47,7 @@ import wyfs.lang.Path;
 import wyfs.lang.Path.Filter;
 import wyfs.lang.Path.ID;
 import wyfs.lang.Path.Root;
+import wyfs.util.ArrayUtils;
 import wyfs.util.Trie;
 import wyfs.util.ZipFile;
 

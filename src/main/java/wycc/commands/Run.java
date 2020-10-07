@@ -20,11 +20,11 @@ import java.util.Collections;
 import java.util.List;
 
 import wybs.lang.Build;
+import wybs.util.Logger;
 import wybs.util.AbstractCompilationUnit.Value;
 import wycc.cfg.Configuration;
 import wycc.cfg.Configuration.Schema;
 import wycc.lang.Command;
-import wycc.util.Logger;
 import wyfs.lang.Path;
 import wyfs.util.Trie;
 

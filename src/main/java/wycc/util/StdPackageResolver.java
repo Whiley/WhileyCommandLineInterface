@@ -28,6 +28,7 @@ import wycc.lang.Package;
 import wycc.lang.Package.Repository;
 import wycc.lang.SemanticVersion;
 import wyfs.lang.Path;
+import wyfs.util.Pair;
 import wyfs.util.Trie;
 
 /**

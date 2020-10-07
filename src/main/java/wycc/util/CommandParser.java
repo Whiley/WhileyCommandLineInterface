@@ -19,6 +19,7 @@ import java.util.List;
 import wycc.lang.Command;
 import wycc.lang.Command.Option;
 import wycc.lang.Command.Template;
+import wyfs.util.Pair;
 
 /**
  * <p>

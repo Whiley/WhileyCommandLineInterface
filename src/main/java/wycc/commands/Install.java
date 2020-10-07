@@ -25,11 +25,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.zip.ZipEntry;
 
+import wybs.util.Logger;
 import wybs.util.AbstractCompilationUnit.Value;
 import wycc.cfg.Configuration;
 import wycc.cfg.Configuration.Schema;
 import wycc.lang.Command;
-import wycc.util.Logger;
 import wycc.lang.Package;
 import wycc.lang.SemanticVersion;
 import wycc.lang.Command.Option;

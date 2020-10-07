@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutorService;
 
 import wybs.lang.Build.Platform;
 import wybs.lang.Build.Project;
+import wybs.util.Logger;
 import wycc.cfg.Configuration;
 import wycc.cfg.Configuration.Schema;
 import wycc.lang.Command;

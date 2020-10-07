@@ -16,6 +16,7 @@ package wycc.util;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+import wybs.util.Logger;
 import wybs.util.AbstractCompilationUnit.Value.UTF8;
 import wycc.cfg.Configuration;
 import wycc.lang.Command;
