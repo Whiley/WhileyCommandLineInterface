@@ -164,7 +164,7 @@ public interface Command {
 		 *            Enclosing project for this build task
 		 * @return
 		 */
-		public void initialise(Configuration configuration, Build.Project project) throws IOException;
+		public void initialise(Configuration configuration, Command.Project project) throws IOException;
 
 		/**
 		 * Get the source type for this build platform.

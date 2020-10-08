@@ -371,5 +371,10 @@ public abstract class AbstractWorkspace extends AbstractPluginEnvironment {
 		public Root getRoot() {
 			return root;
 		}
+
+		@Override
+		public <T extends Value> T get(Class<T> kind, Trie key) {
+			return configuration.get(kind, key);
+		}
 	}
 }
