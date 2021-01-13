@@ -152,6 +152,7 @@ public class WyMain extends AbstractWorkspace {
 			workspace.setLogger(logger);
 			workspace.setMeter(new Meter("Build",logger,profile));
 		}
+		int exitCode;
 		// Done
 		try {
 			// Select project (if applicable)
@@ -163,20 +164,23 @@ public class WyMain extends AbstractWorkspace {
 			// Flush all modified files to disk
 			workspace.closeAll();
 			// Done
-			System.exit(ec ? 0 : 1);
+			exitCode = ec ? 0 : 1;
 		} catch(SyntacticException e) {
 			e.outputSourceError(System.err, false);
 			if (verbose) {
 				printStackTrace(System.err, e);
 			}
-			System.exit(1);
+			exitCode = 1;
 		} catch (Exception e) {
 			System.err.println("Internal failure: " + e.getMessage());
 			if(verbose) {
 				e.printStackTrace();
 			}
-			System.exit(2);
+			exitCode = 2;
+		} finally {
+			workspace.closeAll();
 		}
+		System.exit(exitCode);
 	}
 
 	// ==================================================================
